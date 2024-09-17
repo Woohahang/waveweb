@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.wave.dto.UserDTO;
 import com.example.wave.entity.User;
-import com.example.wave.entity.UserRepository;
+import com.example.wave.repository.UserRepository;
 
 @Service
 public class UserService {
