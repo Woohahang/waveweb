@@ -1,0 +1,22 @@
+<div th:fragment="header">
+	헤더 공간입니다.
+
+	<div>
+		<span th:if="${session.userDTO} == null">
+			<a th:href="@{/oauth2/authorization/discord}">디스코드로 로그인하기</a>
+			<br>
+		</span>
+
+		<span th:if="${session.userDTO} != null">
+			<form th:action="@{/logout}" method="post" style="display:inline;">
+				<button type="submit">로그아웃 하기</button>
+			</form>
+		</span>
+
+
+
+		<span th:if="${session.userDTO} != null"> 환영합니다.
+			<span th:text="${session.userDTO.globalName}"></span> 님
+		</span>
+	</div>
+</div>
