@@ -31,7 +31,7 @@ public class UserController {
 		userDTO.setUsername(principal.getAttribute("username")); // 사용자 이름
 		userDTO.setGlobalName(principal.getAttribute("global_name")); // 글로벌 이름
 		userDTO.setLocale(principal.getAttribute("locale")); // 언어 설정
-
+		
 		// DTO 정보를 사용하여 사용자 정보를 저장 또는 업데이트
 		userService.saveOrUpdateUser(userDTO);
 		

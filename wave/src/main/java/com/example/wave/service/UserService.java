@@ -2,15 +2,18 @@ package com.example.wave.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import com.example.wave.dto.UserDTO;
 import com.example.wave.entity.User;
 import com.example.wave.repository.UserRepository;
 
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
-@Log4j2
-@Service
+@Log4j2 // Log4j2 로깅 기능을 제공하는 어노테이션
+@Service // Spring의 서비스 컴포넌트로 등록
+@Validated // 유효성 검사를 활성화하는 어노테이션
 public class UserService {
 
 	@Autowired
@@ -20,11 +23,11 @@ public class UserService {
 	 * 사용자 정보를 저장하거나 업데이트하는 메서드입니다.
 	 * @param userDTO 사용자 정보를 담고 있는 DTO
 	 */
-	public void saveOrUpdateUser(UserDTO userDTO) {
+	public void saveOrUpdateUser(@Valid UserDTO userDTO) { // @Valid: 유효성 검사를 수행
 		try {
 			// userId로 DB에서 사용자 조회
 			User user = userRepository.findByUserId(userDTO.getUserId());
-
+			
 			if (user == null) {
 				// 사용자가 존재하지 않으면 새로 생성
 				createUser(userDTO);
@@ -32,8 +35,8 @@ public class UserService {
 				// 사용자가 존재하면 정보를 업데이트
 				updateUser(user, userDTO);
 			}
-		} catch (Exception error) {
-			log.error("사용자 생성 중 오류 발생: {}", error.getMessage(), error);
+		} catch (Exception e) {
+			log.error("사용자 생성 중 오류 발생: {}", e.getMessage(), e);
 			throw new RuntimeException("사용자 정보 처리 중 오류가 발생했습니다.");
 		}
 	}
@@ -42,7 +45,7 @@ public class UserService {
      * 새 사용자를 생성하는 메서드
      * @param userDTO 사용자 정보를 담고 있는 DTO
      */
-	private void createUser(UserDTO userDTO) {
+	private void createUser(@Valid UserDTO userDTO) {
 		try {
 			User user = User.builder()
 					.userId(userDTO.getUserId())
@@ -51,8 +54,8 @@ public class UserService {
 		            .locale(userDTO.getLocale())
 		            .build();
 			userRepository.save(user);
-		} catch (Exception error) {
-			log.error("Error occurred while creating user: {}", error.getMessage(), error);
+		} catch (Exception e) {
+			log.error("Error occurred while creating user: {}", e.getMessage(), e);
 			throw new RuntimeException("사용자 생성 중 오류가 발생했습니다.");
 		}
 	}
@@ -62,14 +65,14 @@ public class UserService {
      * @param user 업데이트할 사용자 객체
      * @param userDTO 사용자 정보를 담고 있는 DTO
      */
-	private void updateUser(User user, UserDTO userDTO) {
+	private void updateUser(User user,@Valid UserDTO userDTO) {
 		try {
 			user.setUsername(userDTO.getUsername());
 			user.setGlobalName(userDTO.getGlobalName());
 			user.setLocale(userDTO.getLocale());
-			userRepository.save(user);			
-		} catch (Exception error) {
-			log.error("사용자 업데이트 중 오류 발생: {}", error.getMessage(), error);
+			userRepository.save(user);
+		} catch (Exception e) {
+			log.error("사용자 업데이트 중 오류 발생: {}", e.getMessage(), e);
 			throw new RuntimeException("사용자 업데이트 중 오류가 발생했습니다.");
 		}
 
