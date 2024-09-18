@@ -1,5 +1,6 @@
-package com.example.wave.config;
+  package com.example.wave.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration // Spring의 Configuration 클래스로 설정
 @EnableWebSecurity // Spring Security를 활성화
 public class SecurityConfig {
+	
+	@Autowired
+	CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 	
 	/**
      * SecurityFilterChain을 구성하여 HTTP 보안 설정을 정의합니다.
@@ -33,7 +37,8 @@ public class SecurityConfig {
 			// OAuth2 로그인을 위한 설정
 			.oauth2Login(login -> login
 					.loginPage("/") // 사용자 정의 로그인 페이지
-					.defaultSuccessUrl("/login/oauth2") // 로그인 성공 후 리디렉션할 URL
+//					.defaultSuccessUrl("/login/oauth2") // 로그인 성공 후 리디렉션할 URL
+					.successHandler(customAuthenticationSuccessHandler)
 					)
 
 			// 로그아웃을 위한 설정

@@ -7,12 +7,17 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Controller
-public class TestController {
+public class PageController {
 
+	@GetMapping("/account")
+	public String account() {
+		log.info("account 페이지 요청");
+		return "/pages/account";
+	}
+	
 	@GetMapping("/test")
 	public String test() {
-		log.info("테스트 요청");
-		
+		log.info("test 페이지 요청");
 		return "/pages/test";
 	}
 	
