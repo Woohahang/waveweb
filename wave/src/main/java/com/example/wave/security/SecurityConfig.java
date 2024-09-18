@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration // Spring의 Configuration 클래스로 설정
 @EnableWebSecurity // Spring Security를 활성화
 public class SecurityConfig {
-	
+
 	@Autowired
 	CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 	
@@ -33,12 +33,11 @@ public class SecurityConfig {
 					.requestMatchers("/", "/oauth/**").permitAll() // 모든 사용자에게 접근 허용
 					.anyRequest().authenticated() // 그 외의 모든 요청은 인증을 요구
 					)
-		
+
 			// OAuth2 로그인을 위한 설정
 			.oauth2Login(login -> login
 					.loginPage("/") // 사용자 정의 로그인 페이지
-//					.defaultSuccessUrl("/login/oauth2") // 로그인 성공 후 리디렉션할 URL
-					.successHandler(customAuthenticationSuccessHandler)
+					.successHandler(customAuthenticationSuccessHandler) // 인증 성공 시 호출할 핸들러 설정
 					)
 
 			// 로그아웃을 위한 설정

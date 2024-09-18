@@ -18,12 +18,12 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	@Autowired
-    private HttpSession httpSession;
-	
+	private HttpSession httpSession;
+
 	@GetMapping("/logout/oauth2")
 	public String oauth2logout(OAuth2User principal) {
 		httpSession.invalidate();
 		return "redirect:/";
 	}
-	
+
 }
