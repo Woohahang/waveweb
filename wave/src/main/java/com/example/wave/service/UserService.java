@@ -26,7 +26,7 @@ public class UserService {
 	public void saveOrUpdateUser(@Valid UserDTO userDTO) { // @Valid: 유효성 검사를 수행
 		try {
 			// userId로 DB에서 사용자 조회
-			User user = userRepository.findByUserId(userDTO.getUserId());
+			User user = userRepository.findByUserId(userDTO.getId());
 			
 			if (user == null) {
 				// 사용자가 존재하지 않으면 새로 생성
@@ -48,9 +48,9 @@ public class UserService {
 	private void createUser(@Valid UserDTO userDTO) {
 		try {
 			User user = User.builder()
-					.userId(userDTO.getUserId())
+					.userId(userDTO.getId())
 		            .username(userDTO.getUsername())
-		            .globalName(userDTO.getGlobalName())
+		            .globalName(userDTO.getGlobal_name())
 		            .locale(userDTO.getLocale())
 		            .build();
 			userRepository.save(user);
@@ -68,7 +68,7 @@ public class UserService {
 	private void updateUser(User user,@Valid UserDTO userDTO) {
 		try {
 			user.setUsername(userDTO.getUsername());
-			user.setGlobalName(userDTO.getGlobalName());
+			user.setGlobalName(userDTO.getGlobal_name());
 			user.setLocale(userDTO.getLocale());
 			userRepository.save(user);
 		} catch (Exception e) {

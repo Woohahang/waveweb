@@ -28,6 +28,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Autowired
 	private UserService userService;
 
+	
 	/**
      * 인증 성공 시 호출되는 메서드입니다.
      * 
@@ -49,11 +50,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			UserDTO userDTO = new UserDTO(); // 사용자 정보를 담을 DTO 생성
 
 			// 사용자 정보 설정
-			userDTO.setUserId(oauth2User.getAttribute("id")); // 사용자 ID
+			userDTO.setId(oauth2User.getAttribute("id")); // 사용자 ID
 			userDTO.setUsername(oauth2User.getAttribute("username")); // 사용자 이름
-			userDTO.setGlobalName(oauth2User.getAttribute("global_name")); // 글로벌 이름
+			userDTO.setGlobal_name(oauth2User.getAttribute("global_name")); // 글로벌 이름
 			userDTO.setLocale(oauth2User.getAttribute("locale")); // 언어 설정
-
+			
 			log.info("userDTO : " + userDTO);
 			
 			// 사용자 정보를 저장 또는 업데이트
