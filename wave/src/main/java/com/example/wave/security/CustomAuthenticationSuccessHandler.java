@@ -45,7 +45,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		// 인증 정보가 OAuth2User인 경우
 		if (authentication.getPrincipal() instanceof OAuth2User) {
 			OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal(); // OAuth2User 객체 가져오기
-			
+
 			UserDTO userDTO = new UserDTO(); // 사용자 정보를 담을 DTO 생성
 
 			// 사용자 정보 설정

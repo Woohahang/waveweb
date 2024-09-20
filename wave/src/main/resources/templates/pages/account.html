@@ -1,25 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="/wave.ico" type="image/x-icon">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="icon" href="/wave.ico" type="image/x-icon">
+
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+		}
+
+		form {
+			max-width: 400px;
+			margin: auto;
+		}
+
+		label {
+			display: block;
+			margin: 10px 0 5px;
+		}
+
+		input[type="text"],
+		input[type="number"] {
+			width: 100%;
+			padding: 8px;
+			margin-bottom: 10px;
+			border: 1px solid #ccc;
+		}
+
+		button {
+			padding: 10px 15px;
+			background-color: #28a745;
+			color: white;
+			border: none;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #218838;
+		}
+	</style>
 </head>
+
 <body>
 
 	<div th:replace="~{partials/header :: header}"></div>
-	
+
 	<hr>
-	
-	내 계정 페이지입니다.
+
+	<span th:text="${session.userDTO.globalName}"></span>(<span th:text="${session.userDTO.username}"></span>)
+
+
+	<h1>닉네임 추가</h1>
+	<form th:action="@{/addnickname}" method="post" th:object="${nicknameRequest}">
+		<label for="gameId">게임 ID:</label>
+		<input type="number" id="gameId">
+
+		<label for="nickname">닉네임:</label>
+		<input type="text" id="nickname">
+
+		<button type="submit">추가하기</button>
+	</form>
+
+
 
 	<div>
 		<a th:href="@{/}">메인 페이지로 가기</a>
 	</div>
-	
-	
-
-
 
 </body>
+
 </html>

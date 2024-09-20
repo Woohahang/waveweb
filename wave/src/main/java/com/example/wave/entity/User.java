@@ -24,19 +24,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false, unique = true)
+    @Column(name = "user_discord_id", nullable = false, unique = true)
     private String userId;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "user_discord_name", nullable = false)
     private String username;
 
-    @Column(name = "global_name", nullable = true)
+    @Column(name = "user_discord_global_name", nullable = true)
     private String globalName;
 
-    @Column(name = "locale", nullable = true)
+    @Column(name = "user_discord_locale", nullable = true)
     private String locale;
 
-    @Column(name = "koreanlist_heart_count", nullable = true)
+    @Column(name = "heart_count_koreanbots", nullable = true)
     private Integer koreanlistHeartCount;
 
     @Builder

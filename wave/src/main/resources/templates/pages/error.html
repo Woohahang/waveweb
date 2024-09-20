@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="icon" href="/wave.ico" type="image/x-icon">
+</head>
+
+<body>
+	<div th:replace="~{partials/header :: header}"></div>
+	<hr>
+
+	에러 페이지 입니다.
+
+	<div>
+		<a th:href="@{/}">메인 페이지로 가기</a>
+	</div>
+</body>
+
+</html>
