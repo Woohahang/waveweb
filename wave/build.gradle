@@ -33,6 +33,9 @@ dependencies {
 	
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final' // MapStruct 라이브러리
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final' // 어노테이션 프로세서
+	
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	
