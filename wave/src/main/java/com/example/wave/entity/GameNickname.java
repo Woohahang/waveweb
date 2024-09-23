@@ -9,13 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
-@Getter
+@Builder
 @Table(name = "game_nicknames")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,10 +29,10 @@ public class GameNickname {
 	@JoinColumn(name = "user_discord_id", referencedColumnName = "user_discord_id", nullable = false) // 외래 키 컬럼 이름
 	private User user;
 
-	@Column(name = "game_type", nullable = false)
-	private String gameType;
+	@Column(name = "game_name", nullable = false, length = 50)
+	private String gameName;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 50)
 	private String nickname; // 사용자 입력
 
 }

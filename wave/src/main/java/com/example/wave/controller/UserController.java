@@ -26,41 +26,28 @@ public class UserController {
 	private GameService gameService;
 
 	@GetMapping("/logout/oauth2")
-	public String oauth2logout(HttpSession httpSession) {
+	public String logoutFromOAuth2(HttpSession httpSession) {
 		httpSession.invalidate();
 		return "redirect:/";
 	}
 
 	@GetMapping("/account")
-	public String showAddNicknameForm(Model model) {
-		List<Games> games = Arrays.asList(Games.values());
-
-		model.addAttribute("gameNames", games);
+	public String displayAddNicknameForm(Model model) {
+		
+		model.addAttribute("gameNames", Arrays.asList(Games.values()));
 		model.addAttribute("userGameNicknameDTO", new GameNicknameDTO());
-
-		log.info("테스트 : " + games);
 
 		return "pages/account";
 	}
 
 	@PostMapping("/addnickname")
-	public String addNickname(@ModelAttribute GameNicknameDTO gameNicknameDTO, HttpSession session) {
+	public String submitNickname(@ModelAttribute GameNicknameDTO gameNicknameDTO, HttpSession session) {
 		log.info("addNickname 메서드 동작");
 
 		String userId = getCurrentUserId(session);
 		gameNicknameDTO.setUserDiscordId(userId);
 
 		gameService.saveUserGameNickname(gameNicknameDTO);
-
-		return "redirect:/";
-	}
-
-	@GetMapping("/testbutton")
-	public String test() {
-		log.info("테스트 메서드 동작");
-
-		String userId = "282793473462239232";
-		gameService.test(userId);
 
 		return "redirect:/";
 	}
