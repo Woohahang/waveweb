@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.wave.dto.GameNicknameDTO;
 import com.example.wave.dto.UserDTO;
@@ -65,6 +66,13 @@ public class UserController {
 	    }
 		
 		return "pages/nicknamelist";
+	}
+
+	@PostMapping("/nicknames/delete")
+	public String deleteSelectedNicknames(@RequestParam("nicknameIds") List<Long> nicknameIds) {
+		gameService.deleteGameNickname(nicknameIds); // 선택된 닉네임 삭제 서비스 호출
+
+		return "redirect:/";
 	}
 
 	// 헬퍼 메서드

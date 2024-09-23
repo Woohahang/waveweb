@@ -12,20 +12,27 @@
 
 	<h1>Game Nicknames</h1>
 
-	<table>
-		<thead>
-			<tr>
-				<th>게임 이름</th>
-				<th>닉네임</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="nickname : ${gameNicknames}">
-				<td th:text="${nickname.gameName}"></td>
-				<td th:text="${nickname.nickname}"></td>
-			</tr>
-		</tbody>
-	</table>
+	<form th:action="@{/nicknames/delete}" method="post">
+		<table>
+			<thead>
+				<tr>
+					<th>선택</th>
+					<th>게임 이름</th>
+					<th>닉네임</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="nickname : ${gameNicknames}">
+					<td>
+						<input type="checkbox" name="nicknameIds" th:value="${nickname.id}" /> <!-- 체크박스 -->
+					</td>
+					<td th:text="${nickname.gameName}"></td>
+					<td th:text="${nickname.nickname}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<button type="submit">선택 삭제</button>
+	</form>
 
 	<div th:replace="~{partials/footer :: footer}"></div>
 </body>

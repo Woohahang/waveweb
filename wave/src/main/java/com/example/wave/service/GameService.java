@@ -45,7 +45,7 @@ public class GameService {
 		gameNicknameRepository.save(gameNickname);
 	}
 	
-	
+
 	/**
      * 사용자 ID에 대한 게임 닉네임 목록을 조회하는 메서드입니다.
      * @param userId 사용자 ID
@@ -54,6 +54,18 @@ public class GameService {
 	public List<GameNickname> getGameNicknames(String userId) {
 		// 사용자 ID로 GameNickname 목록을 조회
 		return gameNicknameRepository.findByUser_UserId(userId);
+	}
+
+
+	/**
+	 * 선택된 닉네임 ID 목록을 기반으로 게임 닉네임을 삭제하는 메서드입니다.
+	 * @param ids 삭제할 닉네임의 ID 목록
+	 */
+	public void deleteGameNickname(List<Long> ids) {
+		// 각 닉네임 ID에 대해 삭제 작업 수행
+		for (Long id : ids) {
+			gameNicknameRepository.deleteById(id); // 각 닉네임 ID로 삭제
+		}
 	}
 
 }
