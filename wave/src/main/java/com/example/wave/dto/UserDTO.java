@@ -13,13 +13,11 @@ import lombok.Setter;
 public class UserDTO {
 
 	@NotBlank(message = "id는 비어 있을 수 없습니다.")
-	private String id;
+	private String discordId;
 
 	@NotBlank(message = "username은 비어 있을 수 없습니다.")
-	private String username;
+	private String userName;
 
-	private String global_name;
-	private String locale;
-	private Integer koreanlistHeartCount;
+	private String globalName;
 
 }

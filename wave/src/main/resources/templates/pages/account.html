@@ -50,21 +50,29 @@
 
 	<hr>
 
-	<span th:text="${session.userDTO.globalName}"></span>(<span th:text="${session.userDTO.username}"></span>)
+	<span th:text="${session.userDTO.globalName}"></span>(<span th:text="${session.userDTO.userName}"></span>)
 
 
 	<h1>닉네임 추가</h1>
-	<form th:action="@{/addnickname}" method="post" th:object="${nicknameRequest}">
-		<label for="gameId">게임 ID:</label>
-		<input type="number" id="gameId">
+	<form th:action="@{/addnickname}" method="post" th:object="${userGameNicknameDTO}">
+		<label for="gameName">게임 선택하기</label>
+
+		<select id="gameName" th:field="*{gameName}">
+			<option value="" disabled selected>게임을 선택하세요</option>
+			<option th:each="game : ${gameNames}" th:value="${game}" th:text="${game}"></option>
+		</select>
 
 		<label for="nickname">닉네임:</label>
-		<input type="text" id="nickname">
+		<input type="text" id="nickname" th:field="*{nickname}">
 
+		<!-- 숨겨진 입력 필드 추가 -->
+		<input type="hidden" th:field="*{userDiscordId}" />
+		
 		<button type="submit">추가하기</button>
 	</form>
 
-
+	<!-- 값 잘 들고 온다. -->
+	<span th:text="${session.userDTO.discordId}"></span>
 
 	<div>
 		<a th:href="@{/}">메인 페이지로 가기</a>

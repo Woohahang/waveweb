@@ -50,10 +50,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			UserDTO userDTO = new UserDTO(); // 사용자 정보를 담을 DTO 생성
 
 			// 사용자 정보 설정
-			userDTO.setId(oauth2User.getAttribute("id")); // 사용자 ID
-			userDTO.setUsername(oauth2User.getAttribute("username")); // 사용자 이름
-			userDTO.setGlobal_name(oauth2User.getAttribute("global_name")); // 글로벌 이름
-			userDTO.setLocale(oauth2User.getAttribute("locale")); // 언어 설정
+			userDTO.setDiscordId(oauth2User.getAttribute("id")); // 사용자 ID
+			userDTO.setUserName(oauth2User.getAttribute("username")); // 사용자 이름
+			userDTO.setGlobalName(oauth2User.getAttribute("global_name")); // 글로벌 이름
 			
 			log.info("userDTO : " + userDTO);
 			

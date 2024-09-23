@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="/wave.ico" type="image/x-icon">
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="icon" href="/wave.ico" type="image/x-icon">
 </head>
+
 <body>
 	<div th:replace="~{partials/header :: header}"></div>
 	<hr>
-	
+
 	index.html 파일입니다.
 
 
@@ -16,5 +18,11 @@
 		<a th:href="@{/test}">테스트 페이지로 가기</a>
 	</div>
 
+	
+	<div>
+		<a th:href="@{/testbutton}">테스트 기능 사용하기</a>
+	</div>
+
 </body>
+
 </html>
