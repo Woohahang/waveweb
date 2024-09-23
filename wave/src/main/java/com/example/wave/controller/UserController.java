@@ -43,6 +43,11 @@ public class UserController {
 	}
 	
 	
+	/**
+     * 사용자 삭제 요청 처리 메서드입니다.
+     * @param session 현재 세션
+     * @return 메인 페이지로 리다이렉트
+     */
 	@PostMapping("/deleteUser")
 	public String deleteUser(HttpSession session) {
 	    String userId = getCurrentUserId(session); // 현재 사용자 ID 조회
