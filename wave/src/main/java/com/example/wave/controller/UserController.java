@@ -16,6 +16,7 @@ import com.example.wave.dto.UserDTO;
 import com.example.wave.entity.GameNickname;
 import com.example.wave.enums.Games;
 import com.example.wave.service.GameService;
+import com.example.wave.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
@@ -27,15 +28,28 @@ public class UserController {
 	@Autowired
 	private GameService gameService;
 
+	@Autowired
+	private UserService userService;
+	
 	/**
      * OAuth2 로그아웃 처리 메서드입니다.
      * @param httpSession 현재 세션
      * @return 메인 페이지로 리다이렉트
      */
 	@GetMapping("/logout/oauth2")
-	public String logoutFromOAuth2(HttpSession httpSession) {
-		httpSession.invalidate(); // 세션 무효화
+	public String logoutFromOAuth2(HttpSession session) {
+		session.invalidate(); // 세션 무효화
 		return "redirect:/";
+	}
+	
+	
+	@PostMapping("/deleteUser")
+	public String deleteUser(HttpSession session) {
+	    String userId = getCurrentUserId(session); // 현재 사용자 ID 조회
+	    userService.deleteUser(userId); // 사용자 삭제 서비스 호출
+
+	    session.invalidate(); // 세션 무효화
+	    return "redirect:/"; // 메인 페이지로 리다이렉트
 	}
 
 	

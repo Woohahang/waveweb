@@ -6,5 +6,5 @@ import com.example.wave.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUserId(String userId);
-	
+
 }

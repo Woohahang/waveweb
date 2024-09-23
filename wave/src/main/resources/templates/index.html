@@ -21,7 +21,11 @@
 		<a th:href="@{/nicknamelist}">닉네임 조회하기</a>
 	</div>
 	
-
+	<br>
+	
+	<form th:action="@{/deleteUser}" method="post">
+	    <button type="submit">계정 삭제</button>
+	</form>
 	
 	
 	<div th:replace="~{partials/footer :: footer}"></div>

@@ -6,8 +6,10 @@ import org.springframework.validation.annotation.Validated;
 
 import com.example.wave.dto.UserDTO;
 import com.example.wave.entity.User;
+import com.example.wave.repository.GameNicknameRepository;
 import com.example.wave.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
@@ -19,6 +21,9 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private GameNicknameRepository gameNicknameRepository;
+	
 	/**
 	 * 사용자 정보를 저장하거나 업데이트하는 메서드입니다.
 	 * @param userDTO 사용자 정보를 담고 있는 DTO
@@ -40,6 +45,28 @@ public class UserService {
 			throw new RuntimeException("사용자 정보 처리 중 오류가 발생했습니다.");
 		}
 	}
+	
+	
+	/**
+	 * 사용자 정보를 삭제하는 메서드입니다.
+	 * @param userId 삭제할 사용자 ID
+	 */
+	@Transactional
+	public void deleteUser(String userId) {
+	    // 사용자 ID로 사용자 엔티티 조회
+	    User user = userRepository.findByUserId(userId);
+	    if (user != null) {
+	        // 사용자와 관련된 모든 게임 닉네임 삭제
+	        gameNicknameRepository.deleteByUser(user);
+	        
+	        // 사용자 삭제
+	        userRepository.delete(user);
+	    } else {
+	        log.warn("삭제할 사용자가 존재하지 않습니다: {}", userId);
+	        throw new RuntimeException("사용자를 찾을 수 없습니다.");
+	    }
+	}
+	
 
 	/**
      * 새 사용자를 생성하는 메서드
