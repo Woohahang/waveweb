@@ -48,7 +48,6 @@
 
 	<div th:replace="~{partials/header :: header}"></div>
 
-	<hr>
 
 	<span th:text="${session.userDTO.globalName}"></span>(<span th:text="${session.userDTO.userName}"></span>)
 
@@ -71,12 +70,9 @@
 		<button type="submit">추가하기</button>
 	</form>
 
-	<!-- 값 잘 들고 온다. -->
-	<span th:text="${session.userDTO.discordId}"></span>
+	
+	<div th:replace="~{partials/footer :: footer}"></div>
 
-	<div>
-		<a th:href="@{/}">메인 페이지로 가기</a>
-	</div>
 
 </body>
 

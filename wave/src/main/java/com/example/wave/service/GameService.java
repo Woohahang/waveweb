@@ -1,5 +1,7 @@
 package com.example.wave.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +24,7 @@ public class GameService {
 	private GameNicknameRepository gameNicknameRepository;
 
 	@Autowired
-	private UserRepository userRepository; // UserRepository 주입
+	private UserRepository userRepository;
 	
 	/**
      * 사용자의 게임 닉네임을 저장하는 메서드입니다.
@@ -41,7 +43,17 @@ public class GameService {
 
 		// GameNickname 엔티티를 데이터베이스에 저장
 		gameNicknameRepository.save(gameNickname);
-
+	}
+	
+	
+	/**
+     * 사용자 ID에 대한 게임 닉네임 목록을 조회하는 메서드입니다.
+     * @param userId 사용자 ID
+     * @return 해당 사용자의 게임 닉네임 목록
+     */
+	public List<GameNickname> getGameNicknames(String userId) {
+		// 사용자 ID로 GameNickname 목록을 조회
+		return gameNicknameRepository.findByUser_UserId(userId);
 	}
 
 }

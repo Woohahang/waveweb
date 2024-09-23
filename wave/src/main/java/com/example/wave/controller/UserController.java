@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.wave.dto.GameNicknameDTO;
 import com.example.wave.dto.UserDTO;
+import com.example.wave.entity.GameNickname;
 import com.example.wave.enums.Games;
 import com.example.wave.service.GameService;
 
@@ -50,6 +51,20 @@ public class UserController {
 		gameService.saveUserGameNickname(gameNicknameDTO);
 
 		return "redirect:/";
+	}
+	
+	@GetMapping("/nicknamelist")
+	public String nicknamelist(Model model ,HttpSession session) {
+		String userId = getCurrentUserId(session);
+		
+		List<GameNickname> gameNicknames  = gameService.getGameNicknames(userId);
+		model.addAttribute("gameNicknames", gameNicknames);
+		
+		for (GameNickname gameNickname : gameNicknames) {
+	        log.info("게임 이름: {}, 닉네임: {}", gameNickname.getGameName(), gameNickname.getNickname());
+	    }
+		
+		return "pages/nicknamelist";
 	}
 
 	// 헬퍼 메서드

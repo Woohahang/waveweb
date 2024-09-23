@@ -10,20 +10,23 @@
 <body>
 	<div th:replace="~{partials/header :: header}"></div>
 
-	index.html 파일입니다.
-	<div>
-		<a th:href="@{/test}">테스트 페이지로 가기</a>
-	</div>
-	
-	<br>
-	
-	<div>
-		<a th:href="@{/nicknamelist}">닉네임 조회하기</a>
-	</div>
-	
+	<h1>Game Nicknames</h1>
 
-	
-	
+	<table>
+		<thead>
+			<tr>
+				<th>게임 이름</th>
+				<th>닉네임</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="nickname : ${gameNicknames}">
+				<td th:text="${nickname.gameName}"></td>
+				<td th:text="${nickname.nickname}"></td>
+			</tr>
+		</tbody>
+	</table>
+
 	<div th:replace="~{partials/footer :: footer}"></div>
 </body>
 
