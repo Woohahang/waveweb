@@ -30,7 +30,7 @@ public class SecurityConfig {
 		http
 			// HTTP 요청에 대한 권한을 설정
 			.authorizeHttpRequests(authz -> authz
-					.requestMatchers("/", "/oauth/**", "/testbutton").permitAll() // 모든 사용자에게 접근 허용
+					.requestMatchers("/", "/oauth/**").permitAll() // 모든 사용자에게 접근 허용
 					.anyRequest().authenticated() // 그 외의 모든 요청은 인증을 요구
 					)
 

@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import com.example.wave.dto.GameNicknameDTO;
 import com.example.wave.entity.GameNickname;
 import com.example.wave.entity.User;
-import com.example.wave.mapper.NicknameMapper;
 import com.example.wave.repository.GameNicknameRepository;
 import com.example.wave.repository.UserRepository;
 
