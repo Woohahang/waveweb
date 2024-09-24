@@ -1,9 +1,11 @@
 package com.example.wave.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.example.wave.exception.UserServiceException;
 import com.example.wave.nickname.repository.NicknameRepository;
 import com.example.wave.user.dto.UserDTO;
 import com.example.wave.user.entity.User;
@@ -29,7 +31,6 @@ public class UserService {
 	 * @param userDTO 사용자 정보를 담고 있는 DTO
 	 */
 	public void saveOrUpdateUser(@Valid UserDTO userDTO) { // @Valid: 유효성 검사를 수행
-		try {
 			// userId로 DB에서 사용자 조회
 			User user = userRepository.findByUserId(userDTO.getDiscordId());
 			
@@ -40,10 +41,6 @@ public class UserService {
 				// 사용자가 존재하면 정보를 업데이트
 				updateUser(user, userDTO);
 			}
-		} catch (Exception e) {
-			log.error("사용자 생성 중 오류 발생: {}", e.getMessage(), e);
-			throw new RuntimeException("사용자 정보 처리 중 오류가 발생했습니다.");
-		}
 	}
 	
 	
@@ -53,18 +50,21 @@ public class UserService {
 	 */
 	@Transactional
 	public void deleteUser(String userId) {
-	    // 사용자 ID로 사용자 엔티티 조회
-	    User user = userRepository.findByUserId(userId);
-	    if (user != null) {
-	        // 사용자와 관련된 모든 게임 닉네임 삭제
-	        gameNicknameRepository.deleteByUser(user);
-	        
-	        // 사용자 삭제
-	        userRepository.delete(user);
-	    } else {
-	        log.warn("삭제할 사용자가 존재하지 않습니다: {}", userId);
-	        throw new RuntimeException("사용자를 찾을 수 없습니다.");
-	    }
+		// 사용자 ID로 사용자 엔티티 조회
+		User user = userRepository.findByUserId(userId);
+
+		if (user == null) {
+			throw new UserServiceException("사용자를 찾을 수 없습니다.");
+		}
+
+		try {
+			// 사용자와 관련된 닉네임 모두 삭제, 이후 사용자 삭제
+			gameNicknameRepository.deleteByUser(user);
+			userRepository.delete(user);
+
+		} catch (DataIntegrityViolationException e) {
+			throw new UserServiceException("사용자를 삭제하는 중 데이터 무결성 오류가 발생했습니다.");
+		}
 	}
 	
 
@@ -80,9 +80,8 @@ public class UserService {
 		            .globalName(userDTO.getGlobalName())
 		            .build();
 			userRepository.save(user);
-		} catch (Exception e) {
-			log.error("Error occurred while creating user: {}", e.getMessage(), e);
-			throw new RuntimeException("사용자 생성 중 오류가 발생했습니다.");
+		} catch (DataIntegrityViolationException e) {
+			throw new UserServiceException("사용자 생성 중 오류가 발생했습니다.");
 		}
 	}
 
@@ -96,9 +95,8 @@ public class UserService {
 			user.setUsername(userDTO.getUserName());
 			user.setGlobalName(userDTO.getGlobalName());
 			userRepository.save(user);
-		} catch (Exception e) {
-			log.error("사용자 업데이트 중 오류 발생: {}", e.getMessage(), e);
-			throw new RuntimeException("사용자 업데이트 중 오류가 발생했습니다.");
+		} catch (DataIntegrityViolationException e) {
+			throw new UserServiceException("사용자 업데이트 중 오류가 발생했습니다.");
 		}
 
 	}
