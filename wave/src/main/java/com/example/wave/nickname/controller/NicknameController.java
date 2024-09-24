@@ -28,7 +28,6 @@ public class NicknameController {
 
 	@Autowired
 	private NicknameService nicknameService;
-
 	
 	/**
      * 닉네임 추가 폼을 표시하는 메서드입니다.

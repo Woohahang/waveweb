@@ -24,11 +24,17 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버에 오류가 발생했습니다.");
 	}
 
-	// 추가적인 예외 처리 (예: NullPointerException, DataAccessException 등)
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> handleGenericException(Exception ex) {
 		log.error("알 수 없는 예외 발생: {}", ex.getMessage(), ex);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("알 수 없는 오류가 발생했습니다.");
+	}
+	
+	@ExceptionHandler(NicknameException.class)
+	public ResponseEntity<String> handleNicknameException(NicknameException ex) {
+	    log.error("닉네임 서비스 예외 발생: {}", ex.getMessage(), ex);
+	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 	}
 
 }

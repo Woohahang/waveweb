@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.example.wave.exception.NicknameException;
 import com.example.wave.nickname.dto.NicknameDTO;
 import com.example.wave.nickname.entity.GameNickname;
 import com.example.wave.nickname.repository.NicknameRepository;
@@ -32,18 +33,25 @@ public class NicknameServiceImpl implements NicknameService {
      */
 	@Override
 	public void saveNickname(@Valid NicknameDTO dto) {
-		// userId로 DB에서 사용자 조회
-		User user = userRepository.findByUserId(dto.getUserDiscordId());
-		
-		// GameNickname 엔티티를 빌더 패턴을 사용하여 생성
-		GameNickname gameNickname = GameNickname.builder()
-				.user(user)
-	            .gameName(dto.getGameName())
-	            .nickname(dto.getNickname())
-	            .build();
+		  try {
+		        // userId로 DB에서 사용자 조회
+		        User user = userRepository.findByUserId(dto.getUserDiscordId());
+		        if (user == null) {
+		            throw new NicknameException("사용자를 찾을 수 없습니다. :" + dto.getUserDiscordId());
+		        }
 
-		// GameNickname 엔티티를 데이터베이스에 저장
-		nicknameRepository.save(gameNickname);
+		        // GameNickname 엔티티를 빌더 패턴을 사용하여 생성
+		        GameNickname gameNickname = GameNickname.builder()
+		                .user(user)
+		                .gameName(dto.getGameName())
+		                .nickname(dto.getNickname())
+		                .build();
+
+		        // GameNickname 엔티티를 데이터베이스에 저장
+		        nicknameRepository.save(gameNickname);
+		    } catch (Exception e) {
+		        throw new NicknameException("닉네임 저장 중 오류가 발생했습니다. :", e);
+		    }
 	}
 	
 
@@ -54,8 +62,12 @@ public class NicknameServiceImpl implements NicknameService {
      */
 	@Override
 	public List<GameNickname> getNicknames(String userId) {
-		// 사용자 ID로 GameNickname 목록을 조회
-		return nicknameRepository.findByUser_UserId(userId);
+		try {
+			// 사용자 ID로 GameNickname 목록을 조회
+			return nicknameRepository.findByUser_UserId(userId);
+		} catch (Exception e) {
+			throw new NicknameException("닉네임 조회 중 오류가 발생했습니다. :", e);
+		}
 	}
 
 
@@ -65,9 +77,13 @@ public class NicknameServiceImpl implements NicknameService {
 	 */
 	@Override
 	public void deleteNickname(List<Long> ids) {
-		// 각 닉네임 ID에 대해 삭제 작업 수행
-		for (Long id : ids) {
-			nicknameRepository.deleteById(id); // 각 닉네임 ID로 삭제
+		try {
+			// 각 닉네임 ID에 대해 삭제 작업 수행
+			for (Long id : ids) {
+				nicknameRepository.deleteById(id);
+			}
+		} catch (Exception e) {
+			throw new NicknameException("닉네임 삭제 중 오류가 발생했습니다. :", e);
 		}
 	}
 
