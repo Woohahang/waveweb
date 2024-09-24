@@ -1,13 +1,13 @@
-package com.example.wave.service;
+package com.example.wave.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.example.wave.dto.UserDTO;
-import com.example.wave.entity.User;
-import com.example.wave.repository.GameNicknameRepository;
-import com.example.wave.repository.UserRepository;
+import com.example.wave.nickname.repository.GameNicknameRepository;
+import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.entity.User;
+import com.example.wave.user.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.example.wave.enums;
+package com.example.wave.common.enums;
 
 public enum Games {
 	LEAGUE_OF_LEGENDS,

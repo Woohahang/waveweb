@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.example.wave.dto.UserDTO;
-import com.example.wave.service.UserService;
+import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.service.UserService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Autowired
 	private UserService userService;
 
-	
+
 	/**
      * 인증 성공 시 호출되는 메서드입니다.
      * 
@@ -53,7 +53,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			userDTO.setDiscordId(oauth2User.getAttribute("id")); // 사용자 ID
 			userDTO.setUserName(oauth2User.getAttribute("username")); // 사용자 이름
 			userDTO.setGlobalName(oauth2User.getAttribute("global_name")); // 글로벌 이름
-			
+
 			log.info("userDTO : " + userDTO);
 			
 			// 사용자 정보를 저장 또는 업데이트

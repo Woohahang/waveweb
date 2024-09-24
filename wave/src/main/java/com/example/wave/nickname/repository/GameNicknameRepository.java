@@ -1,11 +1,11 @@
-package com.example.wave.repository;
+package com.example.wave.nickname.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.wave.entity.GameNickname;
-import com.example.wave.entity.User;
+import com.example.wave.nickname.entity.GameNickname;
+import com.example.wave.user.entity.User;
 
 public interface GameNicknameRepository extends JpaRepository<GameNickname, Long> {
 	GameNickname findByNickname(String nickname);

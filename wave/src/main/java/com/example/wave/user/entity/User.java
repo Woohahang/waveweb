@@ -1,6 +1,8 @@
-package com.example.wave.entity;
+package com.example.wave.user.entity;
 
 import java.util.List;
+
+import com.example.wave.nickname.entity.GameNickname;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

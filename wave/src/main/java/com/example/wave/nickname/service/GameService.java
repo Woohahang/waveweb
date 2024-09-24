@@ -1,4 +1,4 @@
-package com.example.wave.service;
+package com.example.wave.nickname.service;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.example.wave.dto.GameNicknameDTO;
-import com.example.wave.entity.GameNickname;
-import com.example.wave.entity.User;
-import com.example.wave.repository.GameNicknameRepository;
-import com.example.wave.repository.UserRepository;
+import com.example.wave.nickname.dto.GameNicknameDTO;
+import com.example.wave.nickname.entity.GameNickname;
+import com.example.wave.nickname.repository.GameNicknameRepository;
+import com.example.wave.user.entity.User;
+import com.example.wave.user.repository.UserRepository;
 
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;

@@ -1,4 +1,4 @@
-package com.example.wave.controller;
+package com.example.wave.user.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.wave.dto.GameNicknameDTO;
-import com.example.wave.dto.UserDTO;
-import com.example.wave.entity.GameNickname;
-import com.example.wave.enums.Games;
-import com.example.wave.service.GameService;
-import com.example.wave.service.UserService;
+import com.example.wave.common.enums.Games;
+import com.example.wave.nickname.dto.GameNicknameDTO;
+import com.example.wave.nickname.entity.GameNickname;
+import com.example.wave.nickname.service.GameService;
+import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;

@@ -1,4 +1,4 @@
-package com.example.wave.dto;
+package com.example.wave.nickname.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

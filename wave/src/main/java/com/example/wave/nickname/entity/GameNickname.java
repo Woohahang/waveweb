@@ -1,4 +1,6 @@
-package com.example.wave.entity;
+package com.example.wave.nickname.entity;
+
+import com.example.wave.user.entity.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

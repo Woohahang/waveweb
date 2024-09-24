@@ -1,4 +1,4 @@
-package com.example.wave.dto;
+package com.example.wave.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
