@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import com.example.wave.nickname.repository.GameNicknameRepository;
+import com.example.wave.nickname.repository.NicknameRepository;
 import com.example.wave.user.dto.UserDTO;
 import com.example.wave.user.entity.User;
 import com.example.wave.user.repository.UserRepository;
@@ -22,7 +22,7 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private GameNicknameRepository gameNicknameRepository;
+	private NicknameRepository gameNicknameRepository;
 	
 	/**
 	 * 사용자 정보를 저장하거나 업데이트하는 메서드입니다.

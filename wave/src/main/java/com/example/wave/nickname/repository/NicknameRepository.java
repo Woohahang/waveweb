@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.wave.nickname.entity.GameNickname;
 import com.example.wave.user.entity.User;
 
-public interface GameNicknameRepository extends JpaRepository<GameNickname, Long> {
+public interface NicknameRepository extends JpaRepository<GameNickname, Long> {
 	GameNickname findByNickname(String nickname);
 
 	// 사용자 ID로 GameNickname 목록을 조회하는 메서드

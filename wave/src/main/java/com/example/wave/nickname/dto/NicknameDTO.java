@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // 기본 생성자 생성
 @AllArgsConstructor // 모든 필드를 매개변수로 받는 생성자 생성
 @Builder // 빌더 패턴을 위한 어노테이션
-public class GameNicknameDTO {
+public class NicknameDTO {
 
 	@NotBlank(message = "User Discord ID는 필수입니다.")
 	private String userDiscordId;

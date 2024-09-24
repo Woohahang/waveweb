@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.wave.common.enums.Games;
-import com.example.wave.nickname.dto.GameNicknameDTO;
+import com.example.wave.nickname.dto.NicknameDTO;
 import com.example.wave.nickname.entity.GameNickname;
-import com.example.wave.nickname.service.GameService;
+import com.example.wave.nickname.service.NicknameService;
 import com.example.wave.user.dto.UserDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +27,7 @@ import lombok.extern.log4j.Log4j2;
 public class NicknameController {
 
 	@Autowired
-	private GameService gameService;
+	private NicknameService nicknameService;
 
 	
 	/**
@@ -39,7 +39,7 @@ public class NicknameController {
 	public String displayAddNicknameForm(Model model) {
 		
 		model.addAttribute("gameNames", Arrays.asList(Games.values())); // 게임 이름 목록 추가
-		model.addAttribute("userGameNicknameDTO", new GameNicknameDTO()); // DTO 추가
+		model.addAttribute("nicknameDTO", new NicknameDTO()); // DTO 추가
 
 		return "pages/account";
 	}
@@ -56,11 +56,11 @@ public class NicknameController {
 	public String nicknamelist(Model model, HttpSession session) {
 		String userId = getCurrentUserId(session); // 현재 사용자 ID 조회
 
-		List<GameNickname> gameNicknames = gameService.getGameNicknames(userId); // 사용자 닉네임 조회
-		model.addAttribute("gameNicknames", gameNicknames); // 모델에 닉네임 목록 추가
+		List<GameNickname> nicknames = nicknameService.getNicknames(userId); // 사용자 닉네임 조회
+		model.addAttribute("nicknames", nicknames); // 모델에 닉네임 목록 추가
 
-		for (GameNickname gameNickname : gameNicknames) {
-			log.info("게임 이름: {}, 닉네임: {}", gameNickname.getGameName(), gameNickname.getNickname());
+		for (GameNickname nickname : nicknames) {
+			log.info("게임 이름: {}, 닉네임: {}", nickname.getGameName(), nickname.getNickname());
 		}
 
 		return "pages/nicknamelist";
@@ -74,13 +74,13 @@ public class NicknameController {
      * @return 메인 페이지로 리다이렉트
      */
 	@PostMapping("/add")
-	public String submitNickname(@ModelAttribute GameNicknameDTO gameNicknameDTO, HttpSession session) {
+	public String submitNickname(@ModelAttribute NicknameDTO nicknameDTO, HttpSession session) {
 		log.info("addNickname 메서드 동작");
 
 		String userId = getCurrentUserId(session); // 현재 사용자 ID 조회
-		gameNicknameDTO.setUserDiscordId(userId); // DTO에 사용자 ID 설정
+		nicknameDTO.setUserDiscordId(userId); // DTO에 사용자 ID 설정
 
-		gameService.saveUserGameNickname(gameNicknameDTO);
+		nicknameService.saveNickname(nicknameDTO);
 
 		return "redirect:/";
 	}
@@ -94,7 +94,7 @@ public class NicknameController {
 	 */
 	@PostMapping("/delete")
 	public String deleteSelectedNicknames(@RequestParam("nicknameIds") List<Long> nicknameIds) {
-		gameService.deleteGameNickname(nicknameIds); // 선택된 닉네임 삭제 서비스 호출
+		nicknameService.deleteNickname(nicknameIds); // 선택된 닉네임 삭제 서비스 호출
 
 		return "redirect:/";
 	}

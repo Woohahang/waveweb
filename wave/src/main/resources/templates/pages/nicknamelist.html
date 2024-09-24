@@ -22,7 +22,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="nickname : ${gameNicknames}">
+				<tr th:each="nickname : ${nicknames}">
 					<td>
 						<input type="checkbox" name="nicknameIds" th:value="${nickname.id}" /> <!-- 체크박스 -->
 					</td>
