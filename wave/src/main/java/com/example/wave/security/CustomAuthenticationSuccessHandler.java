@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import com.example.wave.user.dto.UserDTO;
-import com.example.wave.user.service.UserService;
+import com.example.wave.user.service.UserServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ import lombok.extern.log4j.Log4j2;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 
 	/**
