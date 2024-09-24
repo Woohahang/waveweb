@@ -53,7 +53,7 @@
 
 
 	<h1>닉네임 추가</h1>
-	<form th:action="@{/addnickname}" method="post" th:object="${userGameNicknameDTO}">
+	<form th:action="@{/nickname/add}" method="post" th:object="${userGameNicknameDTO}">
 		<label for="gameName">게임 선택하기</label>
 
 		<select id="gameName" th:field="*{gameName}">
