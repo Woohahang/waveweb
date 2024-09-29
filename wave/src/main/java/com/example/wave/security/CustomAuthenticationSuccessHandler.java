@@ -4,11 +4,14 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.mapper.UserMapper;
 import com.example.wave.user.service.UserServiceImpl;
 
 import jakarta.servlet.ServletException;
@@ -28,6 +31,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Autowired
 	private UserServiceImpl userService;
 
+	@Autowired
+	private OAuth2AuthorizedClientService authorizedClientService;
 
 	/**
      * 인증 성공 시 호출되는 메서드입니다.
@@ -41,30 +46,19 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		log.info("인증 성공");
-
 		// 인증 정보가 OAuth2User인 경우
 		if (authentication.getPrincipal() instanceof OAuth2User) {
+			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
 			OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal(); // OAuth2User 객체 가져오기
 
-			UserDTO userDTO = new UserDTO(); // 사용자 정보를 담을 DTO 생성
-
-			// 사용자 정보 설정
-			userDTO.setDiscordId(oauth2User.getAttribute("id")); // 사용자 ID
-			userDTO.setUserName(oauth2User.getAttribute("username")); // 사용자 이름
-			userDTO.setGlobalName(oauth2User.getAttribute("global_name")); // 글로벌 이름
-
-			log.info("userDTO : " + userDTO);
+			UserDTO userDTO = UserMapper.toUserDTO(oauth2User); // UserMapper를 사용하여 UserDTO 생성
+			userService.saveOrUpdateUser(userDTO); // 사용자 정보를 저장 또는 업데이트
+			request.getSession().setAttribute("userDTO", userDTO); // 세션에 UserDTO 저장
 			
-			// 사용자 정보를 저장 또는 업데이트
-			userService.saveOrUpdateUser(userDTO);
-
-			// 세션에 UserDTO 저장
-	        request.getSession().setAttribute("userDTO", userDTO);
 		}
 
 		// 홈으로 리디렉션
 		response.sendRedirect("/");
 	}
-
+	
 }
