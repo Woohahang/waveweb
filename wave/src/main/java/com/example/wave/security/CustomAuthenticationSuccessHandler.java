@@ -51,7 +51,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
 			OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal(); // OAuth2User 객체 가져오기
 
-			UserDTO userDTO = UserMapper.toUserDTO(oauth2User); // UserMapper를 사용하여 UserDTO 생성
+			UserDTO userDTO = UserMapper.toDTO(oauth2User); // UserMapper를 사용하여 UserDTO 생성
 			userService.saveOrUpdateUser(userDTO); // 사용자 정보를 저장 또는 업데이트
 			request.getSession().setAttribute("userDTO", userDTO); // 세션에 UserDTO 저장
 			

@@ -9,6 +9,7 @@ import com.example.wave.exception.UserServiceException;
 import com.example.wave.nickname.repository.NicknameRepository;
 import com.example.wave.user.dto.UserDTO;
 import com.example.wave.user.entity.User;
+import com.example.wave.user.mapper.UserMapper;
 import com.example.wave.user.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
 				updateUser(user, userDTO);
 			}
 	}
-	
+
 	
 	/**
 	 * 사용자 정보를 삭제하는 메서드입니다.
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserServiceException("사용자를 삭제하는 중 데이터 무결성 오류가 발생했습니다.");
 		}
 	}
-	
+
 
 	/**
      * 새 사용자를 생성하는 메서드
@@ -76,11 +77,7 @@ public class UserServiceImpl implements UserService {
      */
 	private void createUser(@Valid UserDTO userDTO) {
 		try {
-			User user = User.builder()
-					.userId(userDTO.getDiscordId())
-		            .username(userDTO.getUserName())
-		            .globalName(userDTO.getGlobalName())
-		            .build();
+			User user = UserMapper.toEntity(userDTO);
 			userRepository.save(user);
 		} catch (DataIntegrityViolationException e) {
 			throw new UserServiceException("사용자 생성 중 오류가 발생했습니다.");
