@@ -31,9 +31,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Autowired
 	private UserServiceImpl userService;
 
-	@Autowired
-	private OAuth2AuthorizedClientService authorizedClientService;
-
 	/**
      * 인증 성공 시 호출되는 메서드입니다.
      * 
@@ -48,7 +45,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			Authentication authentication) throws IOException, ServletException {
 		// 인증 정보가 OAuth2User인 경우
 		if (authentication.getPrincipal() instanceof OAuth2User) {
-			OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
 			OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal(); // OAuth2User 객체 가져오기
 
 			UserDTO userDTO = UserMapper.toDTO(oauth2User); // UserMapper를 사용하여 UserDTO 생성
