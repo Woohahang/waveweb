@@ -13,4 +13,8 @@ public interface NicknameRepository extends JpaRepository<GameNickname, Long> {
 
 	// 사용자로 게임 닉네임 삭제
 	void deleteByUser(User user);
+	
+	 // 같은 게임 내에서 닉네임이 존재하는지 확인
+    boolean existsByGameNameAndNickname(String gameName, String nickname);
+
 }

@@ -39,6 +39,11 @@ public class NicknameServiceImpl implements NicknameService {
 		        if (user == null) {
 		            throw new NicknameException("사용자를 찾을 수 없습니다. :" + dto.getUserDiscordId());
 		        }
+		        
+		        // 같은 게임 내에서 닉네임 중복 검사
+		        if (checkNicknameExists(dto.getGameName(), dto.getNickname())) {
+		            throw new NicknameException("닉네임이 이미 존재합니다: " + dto.getNickname());
+		        }
 
 		        // GameNickname 엔티티를 빌더 패턴을 사용하여 생성
 		        GameNickname gameNickname = GameNickname.builder()
@@ -47,12 +52,15 @@ public class NicknameServiceImpl implements NicknameService {
 		                .nickname(dto.getNickname())
 		                .build();
 
-		        // GameNickname 엔티티를 데이터베이스에 저장
-		        nicknameRepository.save(gameNickname);
-		    } catch (Exception e) {
-		        throw new NicknameException("닉네임 저장 중 오류가 발생했습니다. :", e);
-		    }
-	}
+				// GameNickname 엔티티를 데이터베이스에 저장
+				nicknameRepository.save(gameNickname);
+			} catch (NicknameException ne) {
+				// 닉네임 관련 예외는 그대로 던져줌
+				throw ne;
+			} catch (Exception e) {
+				throw new NicknameException("닉네임 저장 중 오류가 발생했습니다. :", e);
+			}
+		}
 	
 
 	/**
@@ -85,6 +93,18 @@ public class NicknameServiceImpl implements NicknameService {
 		} catch (Exception e) {
 			throw new NicknameException("닉네임 삭제 중 오류가 발생했습니다. :", e);
 		}
+	}
+	
+
+	/**
+	 * 같은 게임에서 닉네임 중복 존재 여부를 확인하는 메서드입니다.
+	 * 
+	 * @param gameName 확인할 게임 이름
+	 * @param nickname 확인할 닉네임
+	 * @return 중복 여부
+	 */
+	public boolean checkNicknameExists(String gameName, String nickname) {
+		return nicknameRepository.existsByGameNameAndNickname(gameName, nickname);
 	}
 
 }
