@@ -16,7 +16,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class UserDto {
 
 	@NotBlank(message = "id는 비어 있을 수 없습니다.")
 	private String discordId;

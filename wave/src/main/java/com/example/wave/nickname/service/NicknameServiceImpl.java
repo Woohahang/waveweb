@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import com.example.wave.exception.NicknameException;
-import com.example.wave.nickname.dto.NicknameDTO;
+import com.example.wave.nickname.dto.NicknameDto;
 import com.example.wave.nickname.entity.GameNickname;
 import com.example.wave.nickname.repository.NicknameRepository;
 import com.example.wave.user.entity.User;
@@ -32,7 +32,7 @@ public class NicknameServiceImpl implements NicknameService {
      * @param dto 게임 닉네임 정보를 담고 있는 DTO
      */
 	@Override
-	public void saveNickname(@Valid NicknameDTO dto) {
+	public void saveNickname(@Valid NicknameDto dto) {
 		  try {
 		        // userId로 DB에서 사용자 조회
 		        User user = userRepository.findByUserId(dto.getUserDiscordId());

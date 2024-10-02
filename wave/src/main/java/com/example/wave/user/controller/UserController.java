@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.dto.UserDto;
 import com.example.wave.user.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -51,7 +51,7 @@ public class UserController {
      * @return 사용자 ID
      */
 	protected String getCurrentUserId(HttpSession session) {
-		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO"); // 세션에서 사용자 DTO 조회
+		UserDto userDTO = (UserDto) session.getAttribute("userDto"); // 세션에서 사용자 DTO 조회
 		return (userDTO != null) ? userDTO.getDiscordId() : null;
 	}
 

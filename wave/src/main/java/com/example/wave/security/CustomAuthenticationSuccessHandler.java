@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.dto.UserDto;
 import com.example.wave.user.mapper.UserMapper;
 import com.example.wave.user.service.UserServiceImpl;
 
@@ -47,9 +47,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		if (authentication.getPrincipal() instanceof OAuth2User) {
 			OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal(); // OAuth2User 객체 가져오기
 
-			UserDTO userDTO = UserMapper.toDTO(oauth2User); // UserMapper를 사용하여 UserDTO 생성
+			UserDto userDTO = UserMapper.toDTO(oauth2User); // UserMapper를 사용하여 UserDTO 생성
 			userService.saveOrUpdateUser(userDTO); // 사용자 정보를 저장 또는 업데이트
-			request.getSession().setAttribute("userDTO", userDTO); // 세션에 UserDTO 저장
+			request.getSession().setAttribute("userDto", userDTO); // 세션에 UserDTO 저장
 			
 		}
 

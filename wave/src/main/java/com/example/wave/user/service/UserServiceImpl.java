@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.example.wave.exception.UserServiceException;
 import com.example.wave.nickname.repository.NicknameRepository;
-import com.example.wave.user.dto.UserDTO;
+import com.example.wave.user.dto.UserDto;
 import com.example.wave.user.entity.User;
 import com.example.wave.user.mapper.UserMapper;
 import com.example.wave.user.repository.UserRepository;
@@ -32,16 +32,16 @@ public class UserServiceImpl implements UserService {
 	 * @param userDTO 사용자 정보를 담고 있는 DTO
 	 */
 	@Override
-	public void saveOrUpdateUser(@Valid UserDTO userDTO) { // @Valid: 유효성 검사를 수행
+	public void saveOrUpdateUser(@Valid UserDto userDto) { // @Valid: 유효성 검사를 수행
 			// userId로 DB에서 사용자 조회
-			User user = userRepository.findByUserId(userDTO.getDiscordId());
+			User user = userRepository.findByUserId(userDto.getDiscordId());
 			
 			if (user == null) {
 				// 사용자가 존재하지 않으면 새로 생성
-				createUser(userDTO);
+				createUser(userDto);
 			} else {
 				// 사용자가 존재하면 정보를 업데이트
-				updateUser(user, userDTO);
+				updateUser(user, userDto);
 			}
 	}
 
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
      * 새 사용자를 생성하는 메서드
      * @param userDTO 사용자 정보를 담고 있는 DTO
      */
-	private void createUser(@Valid UserDTO userDTO) {
+	private void createUser(@Valid UserDto userDTO) {
 		try {
 			User user = UserMapper.toEntity(userDTO);
 			userRepository.save(user);
@@ -89,10 +89,10 @@ public class UserServiceImpl implements UserService {
      * @param user 업데이트할 사용자 객체
      * @param userDTO 사용자 정보를 담고 있는 DTO
      */
-	private void updateUser(User user,@Valid UserDTO userDTO) {
+	private void updateUser(User user,@Valid UserDto userDto) {
 		try {
-			user.setUsername(userDTO.getUserName());
-			user.setGlobalName(userDTO.getGlobalName());
+			user.setUsername(userDto.getUserName());
+			user.setGlobalName(userDto.getGlobalName());
 			userRepository.save(user);
 		} catch (DataIntegrityViolationException e) {
 			throw new UserServiceException("사용자 업데이트 중 오류가 발생했습니다.");

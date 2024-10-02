@@ -49,11 +49,11 @@
 	<div th:replace="~{partials/header :: header}"></div>
 
 
-	<span th:text="${session.userDTO.globalName}"></span>(<span th:text="${session.userDTO.userName}"></span>)
+	<span th:text="${session.userDto.globalName}"></span>(<span th:text="${session.userDto.userName}"></span>)
 
 
 	<h1>닉네임 추가</h1>
-	<form th:action="@{/nickname/add}" method="post" th:object="${nicknameDTO}">
+	<form th:action="@{/nickname/add}" method="post" th:object="${nicknameDto}">
 		<label for="gameName">게임 선택하기</label>
 
 		<select id="gameName" th:field="*{gameName}">

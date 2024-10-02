@@ -1,12 +1,12 @@
 <div th:fragment="header">
 	<div>
-		<span th:if="${session.userDTO} == null">
+		<span th:if="${session.userDto} == null">
 			<a th:href="@{/oauth2/authorization/discord}">디스코드로 로그인하기</a>
 		</span>
 
-		<span th:if="${session.userDTO} != null">
+		<span th:if="${session.userDto} != null">
 
-			환영합니다, <span th:text="${session.userDTO.globalName}"></span> 님
+			환영합니다, <span th:text="${session.userDto.globalName}"></span> 님
 
 			<div>
 				<a th:href="@{/nickname/account}">내 계정으로 가기</a>
