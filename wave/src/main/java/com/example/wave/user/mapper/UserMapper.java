@@ -7,7 +7,7 @@ import com.example.wave.user.entity.User;
 
 public class UserMapper {
 
-	public static UserDto toDTO(OAuth2User oauth2User) {
+	public static UserDto toDto(OAuth2User oauth2User) {
         return UserDto.builder()
                 .discordId(oauth2User.getAttribute("id"))
                 .userName(oauth2User.getAttribute("username"))

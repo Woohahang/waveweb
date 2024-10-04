@@ -103,7 +103,7 @@ public class NicknameServiceImpl implements NicknameService {
 	 * @param nickname 확인할 닉네임
 	 * @return 중복 여부
 	 */
-	public boolean checkNicknameExists(String gameName, String nickname) {
+	private boolean checkNicknameExists(String gameName, String nickname) {
 		return nicknameRepository.existsByGameNameAndNickname(gameName, nickname);
 	}
 
