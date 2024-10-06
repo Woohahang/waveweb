@@ -1,8 +1,8 @@
 package com.example.wave.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -11,9 +11,9 @@ import lombok.extern.log4j.Log4j2;
 public class HomeController {
 
 	@GetMapping("/")
-	public String home(Model model) {
+	public String home() {
 		log.info("메인 페이지로 요청이 들어왔습니다.");
-		return "index";
+		return "index.html";
 	}
 
 }

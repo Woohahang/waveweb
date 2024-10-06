@@ -27,8 +27,8 @@ dependencies {
     // Spring Boot Starter
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+//  implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -49,6 +49,33 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+task printPath {
+    doLast {
+        println System.getenv("PATH")
+    }
+}
+
+// React 빌드 후 복사 작업
+task buildReact(type: Exec) {
+    workingDir '../../frontend' // React 앱 경로 ( React 앱의 루트 디렉토리, package.json 파일이 위치한 경로 )
+    commandLine 'cmd', '/c', 'npm', 'install' // npm install
+    doLast {
+        commandLine 'cmd', '/c', 'npm', 'run', 'build'
+    }
+}
+
+task copyReactBuild(type: Copy) {
+    from '../../frontend/build' // 빌드 결과물 경로 (react 가 build 했을 때 생성되는 index.html 파일이 위치한 경로 )
+    into 'src/main/resources/static' // Spring Boot의 정적 리소스 경로
+}
+
+// build 작업에 의존성 추가
+build.dependsOn(buildReact)	// 먼저 React 빌드 작업을 실행
+build.dependsOn(copyReactBuild)	// 그 후 React 빌드 결과를 복사
+
+// processResources 작업에 의존성 추가
+processResources.dependsOn(copyReactBuild)
 
 tasks.withType(JavaCompile) {
     options.annotationProcessorPath = configurations.annotationProcessor
