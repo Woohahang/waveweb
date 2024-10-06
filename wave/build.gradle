@@ -59,9 +59,7 @@ task printPath {
 task buildReact(type: Exec) {
     workingDir '../../frontend' // React 앱 경로 ( React 앱의 루트 디렉토리, package.json 파일이 위치한 경로 )
     commandLine 'cmd', '/c', 'npm', 'install' // npm install
-    doLast {
-        commandLine 'cmd', '/c', 'npm', 'run', 'build'
-    }
+    commandLine 'cmd', '/c', 'npm', 'run', 'build'
 }
 
 task copyReactBuild(type: Copy) {
@@ -71,7 +69,7 @@ task copyReactBuild(type: Copy) {
 
 // build 작업에 의존성 추가
 build.dependsOn(buildReact)	// 먼저 React 빌드 작업을 실행
-build.dependsOn(copyReactBuild)	// 그 후 React 빌드 결과를 복사
+buildReact.finalizedBy(copyReactBuild) // buildReact 작업이 끝난 후 copyReactBuild 작업을 실행
 
 // processResources 작업에 의존성 추가
 processResources.dependsOn(copyReactBuild)
