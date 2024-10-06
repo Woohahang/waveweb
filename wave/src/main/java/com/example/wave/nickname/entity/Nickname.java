@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "game_nicknames")
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameNickname {
+public class Nickname {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 자동 생성 전략

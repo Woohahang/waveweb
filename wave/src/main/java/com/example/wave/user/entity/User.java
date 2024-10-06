@@ -2,7 +2,7 @@ package com.example.wave.user.entity;
 
 import java.util.List;
 
-import com.example.wave.nickname.entity.GameNickname;
+import com.example.wave.nickname.entity.Nickname;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,7 +39,7 @@ public class User {
 	private String globalName;
 	
 	@OneToMany(mappedBy = "user")
-    private List<GameNickname> nicknames;
+    private List<Nickname> nicknames;
 	
 	@Builder
 	public User(String userId, String username, String globalName) {

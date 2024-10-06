@@ -9,7 +9,6 @@ import com.example.wave.exception.UserServiceException;
 import com.example.wave.nickname.repository.NicknameRepository;
 import com.example.wave.user.dto.UserDto;
 import com.example.wave.user.entity.User;
-import com.example.wave.user.mapper.UserMapper;
 import com.example.wave.user.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -77,8 +76,8 @@ public class UserServiceImpl implements UserService {
      */
 	private void createUser(@Valid UserDto userDTO) {
 		try {
-			User user = UserMapper.toEntity(userDTO);
-			userRepository.save(user);
+//			User user = UserMapper.toEntity(userDTO);
+//			userRepository.save(user);
 		} catch (DataIntegrityViolationException e) {
 			throw new UserServiceException("사용자 생성 중 오류가 발생했습니다.");
 		}

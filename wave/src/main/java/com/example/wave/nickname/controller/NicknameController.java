@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.wave.common.enums.Games;
 import com.example.wave.nickname.dto.NicknameDto;
-import com.example.wave.nickname.entity.GameNickname;
+import com.example.wave.nickname.entity.Nickname;
 import com.example.wave.nickname.service.NicknameService;
 import com.example.wave.user.dto.UserDto;
 
@@ -55,10 +55,10 @@ public class NicknameController {
 	public String nicknamelist(Model model, HttpSession session) {
 		String userId = getCurrentUserId(session); // 현재 사용자 ID 조회
 
-		List<GameNickname> nicknames = nicknameService.getNicknames(userId); // 사용자 닉네임 조회
+		List<Nickname> nicknames = nicknameService.getNicknames(userId); // 사용자 닉네임 조회
 		model.addAttribute("nicknames", nicknames); // 모델에 닉네임 목록 추가
 
-		for (GameNickname nickname : nicknames) {
+		for (Nickname nickname : nicknames) {
 			log.info("게임 이름: {}, 닉네임: {}", nickname.getGameName(), nickname.getNickname());
 		}
 

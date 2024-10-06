@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.example.wave.exception.NicknameException;
 import com.example.wave.nickname.dto.NicknameDto;
-import com.example.wave.nickname.entity.GameNickname;
+import com.example.wave.nickname.entity.Nickname;
 import com.example.wave.nickname.repository.NicknameRepository;
 import com.example.wave.user.entity.User;
 import com.example.wave.user.repository.UserRepository;
@@ -46,7 +46,7 @@ public class NicknameServiceImpl implements NicknameService {
 		        }
 
 		        // GameNickname 엔티티를 빌더 패턴을 사용하여 생성
-		        GameNickname gameNickname = GameNickname.builder()
+		        Nickname gameNickname = Nickname.builder()
 		                .user(user)
 		                .gameName(dto.getGameName())
 		                .nickname(dto.getNickname())
@@ -69,7 +69,7 @@ public class NicknameServiceImpl implements NicknameService {
      * @return 해당 사용자의 게임 닉네임 목록
      */
 	@Override
-	public List<GameNickname> getNicknames(String userId) {
+	public List<Nickname> getNicknames(String userId) {
 		try {
 			// 사용자 ID로 GameNickname 목록을 조회
 			return nicknameRepository.findByUser_UserId(userId);
