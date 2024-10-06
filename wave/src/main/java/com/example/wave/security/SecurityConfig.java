@@ -21,9 +21,13 @@ public class SecurityConfig {
 
 	@Autowired
 	CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
-	
-	
-    // CORS 설정 추가
+
+
+	/**
+	 * CORS 설정을 구성하는 메서드입니다.
+	 * 
+	 * @return CORS 설정을 포함하는 CorsConfigurationSource 객체
+	 */
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
@@ -38,7 +42,8 @@ public class SecurityConfig {
 		source.registerCorsConfiguration("/**", config);
 		return source;
 	}
-	
+
+
 	/**
      * SecurityFilterChain을 구성하여 HTTP 보안 설정을 정의합니다.
      *
@@ -60,14 +65,14 @@ public class SecurityConfig {
 			.oauth2Login(login -> login
 					.loginPage("/dddd") // 사용자 정의 로그인 페이지
 					.successHandler(customAuthenticationSuccessHandler) // 인증 성공 시 호출할 핸들러 설정
-//					.authorizationEndpoint(authorization -> authorization
-//		                    .baseUri("/oauth2/authorize") // OAuth2 인증 엔드포인트
-//		                )
+					.authorizationEndpoint(authorization -> authorization
+		                    .baseUri("/oauth2/authorize") // OAuth2 인증 엔드포인트
+		                )
 					)
 
-
+			// CORS 설정
 			.cors(cors -> cors
-					.configurationSource(corsConfigurationSource())) // CORS 설정 적용
+					.configurationSource(corsConfigurationSource()))
 
 			// 로그아웃을 위한 설정
 			.logout(logout -> logout
