@@ -57,7 +57,11 @@ public class SecurityConfig {
 		http
 			// HTTP 요청에 대한 권한을 설정
 			.authorizeHttpRequests(authz -> authz
-					.requestMatchers("/","/favicon.ico","/logo192.png" , "/manifest.json" ,"/index.html", "/static/**", "/oauth/**", "/login/**").permitAll() // 모든 사용자에게 접근 허용
+					// 기본 경로와 OAuth, 사용자 정의 로그인 페이지에 대한 접근 허용
+					.requestMatchers("/","/oauth2/**", "/login/**", "/dddd/**").permitAll() // 모든 사용자에게 접근 허용
+					
+					// 정적 리소스와 PWA 관련 파일에 대한 접근 허용
+					.requestMatchers("/favicon.ico","/logo192.png" , "/manifest.json" ,"/index.html", "/static/**").permitAll() // 모든 사용자에게 접근 허용
 					.anyRequest().authenticated() // 그 외의 모든 요청은 인증을 요구
 					)
 
@@ -65,11 +69,11 @@ public class SecurityConfig {
 			.oauth2Login(login -> login
 					.loginPage("/dddd") // 사용자 정의 로그인 페이지
 					.successHandler(customAuthenticationSuccessHandler) // 인증 성공 시 호출할 핸들러 설정
-					.authorizationEndpoint(authorization -> authorization
-		                    .baseUri("/oauth2/authorize") // OAuth2 인증 엔드포인트
-		                )
 					)
-
+			
+			// CSRF 보호 설정
+			.csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
+            
 			// CORS 설정
 			.cors(cors -> cors
 					.configurationSource(corsConfigurationSource()))
@@ -80,7 +84,6 @@ public class SecurityConfig {
 					.logoutSuccessUrl("/") // 로그아웃 후 리디렉션할 URL
 					.invalidateHttpSession(true) // 세션 무효화
 					.clearAuthentication(true) // 인증 정보 삭제
-					.deleteCookies("JSESSIONID") // JSESSIONID 쿠키 삭제
 					.permitAll()
 					);
 		
