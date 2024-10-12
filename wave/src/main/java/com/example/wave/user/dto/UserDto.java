@@ -25,5 +25,7 @@ public class UserDto {
 	private String userName;
 
 	private String globalName;
+	
+	private String profileImageUrl;
 
 }

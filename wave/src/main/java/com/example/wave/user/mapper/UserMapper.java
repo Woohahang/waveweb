@@ -8,10 +8,19 @@ import com.example.wave.user.entity.User;
 public class UserMapper {
 
 	public static UserDto toDto(OAuth2User oauth2User) {
+		String userId = oauth2User.getAttribute("id");
+	    String avatarId = oauth2User.getAttribute("avatar");
+	    String username = oauth2User.getAttribute("username");
+	    String globalName = oauth2User.getAttribute("global_name");
+
+	    // 프로필 이미지 URL 생성
+	    String profileImageUrl = String.format("https://cdn.discordapp.com/avatars/%s/%s.png?size=128", userId, avatarId);
+	    
         return UserDto.builder()
-                .discordId(oauth2User.getAttribute("id"))
-                .userName(oauth2User.getAttribute("username"))
-                .globalName(oauth2User.getAttribute("global_name"))
+                .discordId(userId)
+                .userName(username)
+                .globalName(globalName)
+                .profileImageUrl(profileImageUrl)
                 .build();
 	}
 
