@@ -58,7 +58,7 @@ public class SecurityConfig {
 			// HTTP 요청에 대한 권한을 설정
 			.authorizeHttpRequests(authz -> authz
 					// 기본 경로와 OAuth, 사용자 정의 로그인 페이지에 대한 접근 허용
-					.requestMatchers("/","/oauth2/**", "/login/**", "/dddd/**").permitAll() // 모든 사용자에게 접근 허용
+					.requestMatchers("/","/oauth2/**", "/login/**", "/api/**", "/img/**").permitAll() // 모든 사용자에게 접근 허용
 					
 					// 정적 리소스와 PWA 관련 파일에 대한 접근 허용
 					.requestMatchers("/favicon.ico","/logo192.png" , "/manifest.json" ,"/index.html", "/static/**").permitAll() // 모든 사용자에게 접근 허용
@@ -67,7 +67,7 @@ public class SecurityConfig {
 
 			// OAuth2 로그인을 위한 설정
 			.oauth2Login(login -> login
-					.loginPage("/dddd") // 사용자 정의 로그인 페이지
+					.loginPage("/login") // 사용자 정의 로그인 페이지
 					.successHandler(customAuthenticationSuccessHandler) // 인증 성공 시 호출할 핸들러 설정
 					)
 			
@@ -80,7 +80,7 @@ public class SecurityConfig {
 
 			// 로그아웃을 위한 설정
 			.logout(logout -> logout
-					.logoutUrl("/logout") // 기본 로그아웃 URL
+					.logoutUrl("/api/logout") // 기본 로그아웃 URL
 					.logoutSuccessUrl("/") // 로그아웃 후 리디렉션할 URL
 					.invalidateHttpSession(true) // 세션 무효화
 					.clearAuthentication(true) // 인증 정보 삭제
