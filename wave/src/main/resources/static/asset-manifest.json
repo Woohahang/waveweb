@@ -1,15 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.f855e6bc.css",
-    "main.js": "/static/js/main.6985fac1.js",
+    "main.css": "/static/css/main.0266064d.css",
+    "main.js": "/static/js/main.ec153125.js",
     "static/js/453.8ab44547.chunk.js": "/static/js/453.8ab44547.chunk.js",
+    "static/media/logo.png": "/static/media/logo.6b017c72edbadb4005b3.png",
+    "static/media/discord_voice_channels_chatting.png": "/static/media/discord_voice_channels_chatting.097669f5aff71db633fe.png",
+    "static/media/discord_game_list.png": "/static/media/discord_game_list.1f09060059e18cf12b60.png",
+    "static/media/logout-icon.png": "/static/media/logout-icon.0becdbc391b7088ace83.png",
     "index.html": "/index.html",
-    "main.f855e6bc.css.map": "/static/css/main.f855e6bc.css.map",
-    "main.6985fac1.js.map": "/static/js/main.6985fac1.js.map",
+    "main.0266064d.css.map": "/static/css/main.0266064d.css.map",
+    "main.ec153125.js.map": "/static/js/main.ec153125.js.map",
     "453.8ab44547.chunk.js.map": "/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f855e6bc.css",
-    "static/js/main.6985fac1.js"
+    "static/css/main.0266064d.css",
+    "static/js/main.ec153125.js"
   ]
 }
